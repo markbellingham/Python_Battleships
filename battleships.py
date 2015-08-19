@@ -7,7 +7,7 @@ for x in range(5):
     board.append(["O"] * 5)
 
 def print_board(board):
-    #tmp = sp.call('clear',shell=True)
+    tmp = sp.call('clear',shell=True)
     print "Let's play Battleship!"
     print
     for row in board:

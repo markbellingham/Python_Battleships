@@ -30,8 +30,8 @@ ship_col = random_col(board)
 # Everything from here on should go in your for loop!
 # Be sure to indent four spaces!
 for turn in range(4):
-    guess_row = int(raw_input("Guess Row:"))
-    guess_col = int(raw_input("Guess Col:"))
+    guess_row = int(raw_input("Guess Row:")) - 1
+    guess_col = int(raw_input("Guess Col:")) - 1
     
     if guess_row == ship_row and guess_col == ship_col:
         print "Congratulations! You sunk my battleship!"

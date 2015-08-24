@@ -43,8 +43,18 @@ print "ship 1 is: ", ship1_row, ship1_col
 print "ship 2 is: ", ship2_row, ship2_col
 
 for turn in range(1,6):
-    guess_row = int(raw_input("Guess Row:")) - 1
-    guess_col = int(raw_input("Guess Col:")) - 1
+    while True:
+        try:
+            guess_row = int(raw_input("Guess Row: ")) - 1
+            break
+        except ValueError:
+            print "Invalid value"
+    while True:
+        try:
+            guess_col = int(raw_input("Guess Col: ")) - 1
+            break
+        except ValueError:
+            print "Invalid value"
     
     if guess_row == ship1_row and guess_col == ship1_col:
         print "Congratulations! You sunk my battleship number 1!"

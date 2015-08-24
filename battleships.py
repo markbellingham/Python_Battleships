@@ -31,28 +31,34 @@ def random_row(board):
 def random_col(board):
     return randint(0, len(board[0]) - 1)
 
-ship_row = random_row(board)
-ship_col = random_col(board)
-# print ship_row
-# print ship_col
+ship1_row = random_row(board)
+ship1_col = random_col(board)
+while True:
+    ship2_row = random_row(board)
+    ship2_col = random_col(board)
+    if ship2_row != ship1_row or ship2_col != ship1_col:
+        break
+
+print "ship 1 is: ", ship1_row, ship1_col
+print "ship 2 is: ", ship2_row, ship2_col
 
 for turn in range(1,6):
     guess_row = int(raw_input("Guess Row:")) - 1
     guess_col = int(raw_input("Guess Col:")) - 1
     
-    if guess_row == ship_row and guess_col == ship_col:
-        print "Congratulations! You sunk my battleship!"
-        break
+    if guess_row == ship1_row and guess_col == ship1_col:
+        print "Congratulations! You sunk my battleship number 1!"
+        board[guess_row][guess_col] = "X"
     else:
         if (guess_row < 0 or guess_row > 4) or (guess_col < 0 or guess_col > 4):
             message = "Oops, that's not even in the ocean."
-        elif(board[guess_row][guess_col] == "X"):
+        elif(board[guess_row][guess_col] == "^"):
             message = "You guessed that one already."
             if turn == 5:
                 message = "Game Over"
         else:
             message = "You missed my battleship!"
-            board[guess_row][guess_col] = "X"
+            board[guess_row][guess_col] = "^"
             if turn == 5:
                 message = "Game Over"
         turn = turn + 1

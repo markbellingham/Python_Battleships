@@ -31,16 +31,25 @@ def random_row(board):
 def random_col(board):
     return randint(0, len(board[0]) - 1)
 
-ship1_row = random_row(board)
-ship1_col = random_col(board)
-while True:
-    ship2_row = random_row(board)
-    ship2_col = random_col(board)
-    if ship2_row != ship1_row or ship2_col != ship1_col:
-        break
+ships = []
+ship = []
 
-print "ship 1 is: ", ship1_row, ship1_col
-print "ship 2 is: ", ship2_row, ship2_col
+while len(ships) < 3:
+    #ship = []
+    ship_row = random_row(board)
+    ship_col = random_col(board)
+    ship.append(ship_row)
+    ship.append(ship_col)
+    if ship not in ships:
+        ships.append(ship)
+
+for i in range(len(ships)):
+    ship = ships[i]
+    for j in ship:
+        ship_row = j[0]
+        ship_col = j[1]
+        print "ship" + i + ":",ship_row, ship_col
+
 
 for turn in range(1,6):
     while True:
@@ -48,17 +57,20 @@ for turn in range(1,6):
             guess_row = int(raw_input("Guess Row: ")) - 1
             break
         except ValueError:
-            print "Invalid value"
+            print "That input is not valid"
     while True:
         try:
             guess_col = int(raw_input("Guess Col: ")) - 1
             break
         except ValueError:
-            print "Invalid value"
+            print "That input is not valid"
     
-    if guess_row == ship1_row and guess_col == ship1_col:
-        print "Congratulations! You sunk my battleship number 1!"
+    if guess_row == ship_row and guess_col == ship_col:
+        print "Congratulations! You sunk my battleship!"
         board[guess_row][guess_col] = "X"
+    #elif guess_row == ship2_row and guess_col == ship2_col:
+    #    print "Congratulations! You sunk battleship number 2!"
+    #    board[guess_row][guess_col] = "X"
     else:
         if (guess_row < 0 or guess_row > 4) or (guess_col < 0 or guess_col > 4):
             message = "Oops, that's not even in the ocean."

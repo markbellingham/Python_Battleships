@@ -32,26 +32,16 @@ def random_col(board):
     return randint(0, len(board[0]) - 1)
 
 ships = []
-ship = []
 
 while len(ships) < 3:
-    #ship = []
-    ship_row = random_row(board)
-    ship_col = random_col(board)
-    ship.append(ship_row)
-    ship.append(ship_col)
+    ship = []
+    ship.append(random_row(board))
+    ship.append(random_col(board))
     if ship not in ships:
         ships.append(ship)
 
-for i in range(len(ships)):
-    ship = ships[i]
-    for j in ship:
-        ship_row = j[0]
-        ship_col = j[1]
-        print "ship" + i + ":",ship_row, ship_col
-
-
 for turn in range(1,6):
+    guess = []
     while True:
         try:
             guess_row = int(raw_input("Guess Row: ")) - 1
@@ -64,27 +54,32 @@ for turn in range(1,6):
             break
         except ValueError:
             print "That input is not valid"
+    guess.append(guess_row)
+    guess.append(guess_col)
     
-    if guess_row == ship_row and guess_col == ship_col:
-        print "Congratulations! You sunk my battleship!"
-        board[guess_row][guess_col] = "X"
-    #elif guess_row == ship2_row and guess_col == ship2_col:
-    #    print "Congratulations! You sunk battleship number 2!"
-    #    board[guess_row][guess_col] = "X"
-    else:
-        if (guess_row < 0 or guess_row > 4) or (guess_col < 0 or guess_col > 4):
-            message = "Oops, that's not even in the ocean."
-        elif(board[guess_row][guess_col] == "^"):
-            message = "You guessed that one already."
-            if turn == 5:
-                message = "Game Over"
+    for ship in ships:
+        if guess == ship:
+            print "Congratulations! You sunk battleship number ", ship
+            board[guess_row][guess_col] = "X"
         else:
-            message = "You missed my battleship!"
-            board[guess_row][guess_col] = "^"
-            if turn == 5:
-                message = "Game Over"
-        turn = turn + 1
-        print_board(board)
+            if (guess_row < 0 or guess_row > 4) or (guess_col < 0 or guess_col > 4):
+                message = "Oops, that's not even in the ocean."
+                break
+            elif(board[guess_row][guess_col] == "^"):
+                message = "You guessed that one already."
+                if turn == 5:
+                    message = "Game Over"
+                break
+            else:
+                message = "You missed my battleship!"
+                board[guess_row][guess_col] = "^"
+                #guess_row = ""
+                #guess_col = ""
+                if turn == 5:
+                    message = "Game Over"
+                break
+    turn = turn + 1
+    print_board(board)
 
 
 # Extra Credit

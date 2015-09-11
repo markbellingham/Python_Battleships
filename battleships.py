@@ -6,6 +6,7 @@ message = ""
 turn = 1
 ships = []
 ships_down = 0
+game_length = 10
 
 for x in range(5):
     board.append(["O"] * 5)
@@ -13,6 +14,7 @@ for x in range(5):
 def print_board(board):
     global message
     global turn
+    global game_length
     tmp = sp.call('clear',shell=True)
     print "Let's play Battleship!"
     print
@@ -22,7 +24,7 @@ def print_board(board):
     print message
     message = ""
     # Print (turn + 1) here unless game is over
-    if turn < 6:
+    if turn < game_length:
         print "Turn:", turn
 
 print_board(board)
@@ -36,6 +38,7 @@ def random_col(board):
 def ship_attack(guess):
     global ships_down
     global message
+    global game_length
     for ship in ships:
         if guess == ship:
             print "Congratulations! You sunk battleship", ship
@@ -47,7 +50,7 @@ def ship_attack(guess):
                 break
             elif(board[guess_row][guess_col] == "^"):
                 message = "You guessed that one already."
-                if turn == 5:
+                if turn == game_length - 1:
                     message = "Game Over"
                 break
             else:
@@ -55,7 +58,7 @@ def ship_attack(guess):
                 board[guess_row][guess_col] = "^"
                 #guess_row = ""
                 #guess_col = ""
-                if turn == 5:
+                if turn == game_length - 1:
                     message = "Game Over"
                 break
         if ships_down == len(ships):
@@ -68,7 +71,7 @@ while len(ships) < 3:
     if ship not in ships:
         ships.append(ship)
 
-for turn in range(1,6):
+for turn in range(1,game_length):
     guess = []
     while True:
         try:

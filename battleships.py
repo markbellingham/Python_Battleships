@@ -4,6 +4,8 @@ import subprocess as sp
 board = []
 message = ""
 turn = 1
+ships = []
+ships_down = 0
 
 for x in range(5):
     board.append(["O"] * 5)
@@ -31,7 +33,33 @@ def random_row(board):
 def random_col(board):
     return randint(0, len(board[0]) - 1)
 
-ships = []
+def ship_attack(guess):
+    global ships_down
+    global message
+    for ship in ships:
+        if guess == ship:
+            print "Congratulations! You sunk battleship", ship
+            board[guess_row][guess_col] = "X"
+            ships_down += 1
+        else:
+            if (guess_row < 0 or guess_row > 4) or (guess_col < 0 or guess_col > 4):
+                message = "Oops, that's not even in the ocean."
+                break
+            elif(board[guess_row][guess_col] == "^"):
+                message = "You guessed that one already."
+                if turn == 5:
+                    message = "Game Over"
+                break
+            else:
+                message = "You missed my battleship!"
+                board[guess_row][guess_col] = "^"
+                #guess_row = ""
+                #guess_col = ""
+                if turn == 5:
+                    message = "Game Over"
+                break
+        if ships_down == len(ships):
+            break
 
 while len(ships) < 3:
     ship = []
@@ -56,28 +84,8 @@ for turn in range(1,6):
             print "That input is not valid"
     guess.append(guess_row)
     guess.append(guess_col)
+    ship_attack(guess)
     
-    for ship in ships:
-        if guess == ship:
-            print "Congratulations! You sunk battleship number ", ship
-            board[guess_row][guess_col] = "X"
-        else:
-            if (guess_row < 0 or guess_row > 4) or (guess_col < 0 or guess_col > 4):
-                message = "Oops, that's not even in the ocean."
-                break
-            elif(board[guess_row][guess_col] == "^"):
-                message = "You guessed that one already."
-                if turn == 5:
-                    message = "Game Over"
-                break
-            else:
-                message = "You missed my battleship!"
-                board[guess_row][guess_col] = "^"
-                #guess_row = ""
-                #guess_col = ""
-                if turn == 5:
-                    message = "Game Over"
-                break
     turn = turn + 1
     print_board(board)
 

@@ -5,7 +5,7 @@ board = []
 turn = 1
 ships = []
 ships_down = 0
-game_length = 6
+game_length = 10
 game_over = False
 
 
@@ -105,6 +105,7 @@ def ship_attack(guess):
                 board[guess_row - 1][guess_col - 1] = "^"
                 if turn == game_length:
                     message += " - Game Over"
+                    game_over = True
     return message
 
 

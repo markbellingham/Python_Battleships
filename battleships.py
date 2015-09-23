@@ -6,7 +6,7 @@ turn = 1
 ships = []
 ships_down = 0
 game_length = 6
-
+game_over = False
 
 
 for x in range(5):
@@ -53,7 +53,7 @@ def print_board(board):
         print message
     except NameError:
         print NameError
-    if turn < game_length:
+    if turn < game_length and game_over == False:
         print "Turn:", turn
 
 
@@ -80,6 +80,8 @@ def make_guess():
 def ship_attack(guess):
     global ships_down
     global game_length
+    global message
+    global game_over
     guess_row = guess[0]
     guess_col = guess[1]
     for ship in ships:
@@ -87,35 +89,32 @@ def ship_attack(guess):
             message = "Congratulations! You sunk battleship", ship
             board[guess_row - 1][guess_col - 1] = "X"
             ships_down += 1
-            return message
+            if ships_down == len(ships):
+                message = "Congratulations! You sunk all my battleships!"
+                game_over = True
+            break
         else:
             if (guess_row < 1 or guess_row > 5) or (guess_col < 1 or guess_col > 5):
                 message = "Oops, that's not even in the ocean."
-                return message
-            elif(board[guess_row - 1][guess_col - 1] == "^"):
-                message = "You guessed that one already."
-                if turn == game_length:
-                    message = "Game Over"
-                    return message
+            # elif(board[guess_row - 1][guess_col - 1] == "^"):
+            #     message = "You guessed that one already."
+            #     if turn == game_length:
+            #         message += " - Game Over"
             else:
                 message = "You missed my battleship!"
                 board[guess_row - 1][guess_col - 1] = "^"
                 if turn == game_length:
-                    message = "Game Over"
-                    return message
-        if ships_down == len(ships):
-            message = "Congratulations! You sunk all my battleships!"
-            return message
+                    message += " - Game Over"
     return message
 
 
-
 for turn in range(1,game_length):
+    while game_over == False:
+        print_board(board)
+        guess = make_guess()
+        ship_attack(guess)
+        turn += 1
     print_board(board)
-    guess = make_guess()
-    ship_attack(guess)
-    turn += 1
-
 
 # Extra Credit
 

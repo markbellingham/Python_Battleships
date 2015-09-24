@@ -53,7 +53,7 @@ def print_board(board):
         print message
     except NameError:
         print NameError
-    if turn < game_length and game_over == False:
+    if turn <= game_length and game_over == False:
         print "Turn:", turn
 
 
@@ -86,7 +86,7 @@ def ship_attack(guess):
     guess_col = guess[1]
     for ship in ships:
         if guess == ship:
-            message = "Congratulations! You sunk battleship", ship
+            message = "Congratulations! You sunk battleship number " + str(ships.index(ship) + 1)
             board[guess_row - 1][guess_col - 1] = "X"
             ships_down += 1
             if ships_down == len(ships):

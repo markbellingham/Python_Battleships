@@ -17,8 +17,48 @@ while len(ships) < 3:
     ship = []
     ship.append(random_row(board))
     ship.append(random_col(board))
-    if ship not in ships:
-        ships.append(ship)
+    ships.append(ship)
+    ship = []
+    ship.append(random_row(board))
+    ship.append(random_col(board))
+    while len(ship) < 2:
+        row = random_row(board)
+        col = random_col(board)
+        if row == ship[0]+1 or row == ship[0]-1 or col == ship[1]+1 or col == ship[1]-1:
+            ship.append(row)
+            ship.append(col)
+    ships.append(ship)
+    ship = []
+    ship.append(random_row(board))
+    ship.append(random_col(board))
+    while len(ship) < 3:
+        row = random_row(board)
+        col = random_col(board)
+        if row == ship[0]+1 or row == ship[0]-1:
+            ship.append(row)
+            ship.append(col)
+            if row+1 < 6:
+                ship.append(row+1)
+                ship.append(col)
+            else:
+                ship.append(ship[0]-1)
+                ship.append(col)
+        if col == ship[1]+1 or col == ship[1]-1:
+            ship.append(row)
+            ship.append(col)
+            if col+1 < 6:
+                ship.append(row)
+                ship.append(col+1)
+            else:
+                ship.append(row)
+                ship.append(ship[1]-1)
+    ships.append(ship)
 
+
+
+
+
+print
 for i in range(len(ships)):
-    print "ship " + str(i) + ":",ships[i]
+    print "ship " + str(i + 1) + ":",ships[i]
+print

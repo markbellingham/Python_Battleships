@@ -42,7 +42,7 @@ def print_board(board):
         print " ".join(row)
     print
     for i in range(len(ships)):
-        print "ship " + str(i) + ":",ships[i]
+        print "ship " + str(i + 1) + ":",ships[i]
     print
     try:
         print "Guess is: ", guess
@@ -119,11 +119,11 @@ for turn in range(1,game_length):
 
 # Extra Credit
 
-# Make multiple battleships you will need to be careful because you need to make sure that you don not place battleships on top of each other on the game board. 
+# Make multiple battleships you will need to be careful because you need to make sure that you do not place battleships on top of each other on the game board. 
 # You'll also want to make sure that you balance the size of the board with the number of ships so the game is still challenging and fun to play.
 
 # Make battleships of different sizes: this is trickier than it sounds. All the parts of the battleship need to be vertically or horizontally touching and you will 
-# need to make sure you don not accidentally place part of a ship off the side of the board.
+# need to make sure you do not accidentally place part of a ship off the side of the board.
 
 # Make your game a two-player game.
 

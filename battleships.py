@@ -1,6 +1,7 @@
 from random import randint
 import subprocess as sp
 
+# Initialise variables and lists
 board = []
 turn = 1
 ships = []
@@ -8,12 +9,12 @@ ships_down = 0
 game_length = 10
 game_over = False
 
-
+# Create the board
 for x in range(5):
     board.append(["O"] * 5)
 
 
-
+# Function to choose random points on the board
 def random_row(board):
     return randint(1, len(board))
 
@@ -21,7 +22,7 @@ def random_col(board):
     return randint(1, len(board[0]))
 
 
-
+# Creates 3 ships of 1 square in different locations
 while len(ships) < 3:
     ship = []
     ship.append(random_row(board))
@@ -30,7 +31,7 @@ while len(ships) < 3:
         ships.append(ship)
 
 
-
+# Function to print the board and messages
 def print_board(board):
     global turn
     global game_length
@@ -57,7 +58,7 @@ def print_board(board):
         print "Turn:", turn
 
 
-
+# Function to handle the user input including error checking
 def make_guess():
     guess = []
     while True:
@@ -76,7 +77,8 @@ def make_guess():
     return guess
 
 
-
+# Function to check if the guess matches one of the ship locations.
+# Also checks if all ships have been hit
 def ship_attack(guess):
     global ships_down
     global game_length
@@ -108,7 +110,7 @@ def ship_attack(guess):
                     game_over = True
     return message
 
-
+# This is to run the game
 for turn in range(1,game_length):
     while game_over == False:
         print_board(board)
@@ -119,11 +121,9 @@ for turn in range(1,game_length):
 
 # Extra Credit
 
-# Make multiple battleships you will need to be careful because you need to make sure that you do not place battleships on top of each other on the game board. 
-# You'll also want to make sure that you balance the size of the board with the number of ships so the game is still challenging and fun to play.
+# Make multiple battleships you will need to be careful because you need to make sure that you do not place battleships on top of each other on the game board. You'll also want to make sure that you balance the size of the board with the number of ships so the game is still challenging and fun to play.
 
-# Make battleships of different sizes: this is trickier than it sounds. All the parts of the battleship need to be vertically or horizontally touching and you will 
-# need to make sure you do not accidentally place part of a ship off the side of the board.
+# Make battleships of different sizes: this is trickier than it sounds. All the parts of the battleship need to be vertically or horizontally touching and you will need to make sure you do not accidentally place part of a ship off the side of the board. Also the ships must not overlap each other.
 
 # Make your game a two-player game.
 

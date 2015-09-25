@@ -14,27 +14,35 @@ def random_col(board):
 ships = []
 
 while len(ships) < 3:
+    # To create a ship of 1 square
     ship = []
     ship.append(random_row(board))
     ship.append(random_col(board))
     ships.append(ship)
+    # To create a ship of 2 squares
     ship = []
     ship.append(random_row(board))
     ship.append(random_col(board))
-    while len(ship) < 2:
+    while len(ship) < 4:
         row = random_row(board)
         col = random_col(board)
-        if row == ship[0]+1 or row == ship[0]-1 or col == ship[1]+1 or col == ship[1]-1:
+        if (
+            (row == ship[0]+1 and col == ship[1]) or 
+            (row == ship[0]-1 and col == ship[1]) or 
+            (col == ship[1]+1 and row == ship[0]) or 
+            (col == ship[1]-1 and row == ship[0])
+           ):
             ship.append(row)
             ship.append(col)
     ships.append(ship)
+    # To create a ship of 3 squares
     ship = []
     ship.append(random_row(board))
     ship.append(random_col(board))
     while len(ship) < 3:
         row = random_row(board)
         col = random_col(board)
-        if row == ship[0]+1 or row == ship[0]-1:
+        if row == ship[0]+1 and col == ship[1]:
             ship.append(row)
             ship.append(col)
             if row+1 < 6:
@@ -43,7 +51,16 @@ while len(ships) < 3:
             else:
                 ship.append(ship[0]-1)
                 ship.append(col)
-        if col == ship[1]+1 or col == ship[1]-1:
+        elif row == ship[0]-1 and col == ship[1]:
+            ship.append(row)
+            ship.append(col)
+            if row-1 >= 0:
+                ship.append(row-1)
+                ship.append(col)
+            else:
+                ship.append(row+2)
+                ship.append(col)
+        elif col == ship[1]+1 and row == ship[0]:
             ship.append(row)
             ship.append(col)
             if col+1 < 6:
@@ -52,6 +69,15 @@ while len(ships) < 3:
             else:
                 ship.append(row)
                 ship.append(ship[1]-1)
+        elif col == ship[1]-1 and row == ship[0]:
+            ship.append(row)
+            ship.append(col)
+            if col-1 >= 0:
+                ship.append(row)
+                ship.append(col-1)
+            else:
+                ship.append(row)
+                ship.append(col+2)
     ships.append(ship)
 
 

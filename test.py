@@ -6,10 +6,10 @@ for x in range(5):
     board.append(["O"] * 5)
 
 def random_row(board):
-    return randint(0, len(board) - 1)
+    return randint(1, len(board))
 
 def random_col(board):
-    return randint(0, len(board[0]) - 1)
+    return randint(1, len(board[0]))
 
 ships = []
 
@@ -47,7 +47,7 @@ while len(ships) < 3:
                 ship.append([ship[0][0]-1,col])
         elif row == ship[0][0]-1 and col == ship[0][1]:
             ship.append([row,col])
-            if row-1 >= 0:
+            if row-1 > 0:
                 ship.append([row-1,col])
             else:
                 ship.append([row+2,col])
@@ -59,7 +59,7 @@ while len(ships) < 3:
                 ship.append([row,ship[0][1]-1])
         elif col == ship[0][1]-1 and row == ship[0][0]:
             ship.append([row,col])
-            if col-1 >= 0:
+            if col-1 > 0:
                 ship.append([row,col-1])
             else:
                 ship.append([row,col+2])

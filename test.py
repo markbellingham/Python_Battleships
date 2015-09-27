@@ -14,25 +14,6 @@ def random_col(board):
 ships = []
 
 while len(ships) < 3:
-    # To create a ship of 1 square
-    ship = []
-    ship.append(random_row(board))
-    ship.append(random_col(board))
-    ships.append(ship)
-    # To create a ship of 2 squares
-    ship = []
-    ship.append([random_row(board),random_col(board)])
-    while len(ship) < 2:
-        row = random_row(board)
-        col = random_col(board)
-        if (
-            (row == ship[0][0]+1 and col == ship[0][1]) or 
-            (row == ship[0][0]-1 and col == ship[0][1]) or 
-            (col == ship[0][1]+1 and row == ship[0][0]) or 
-            (col == ship[0][1]-1 and row == ship[0][0])
-           ):
-            ship.append([row,col])
-    ships.append(ship)
     # To create a ship of 3 squares
     ship = []
     ship.append([random_row(board),random_col(board)])
@@ -64,11 +45,36 @@ while len(ships) < 3:
             else:
                 ship.append([row,col+2])
     ships.append(ship)
+    # To create a ship of 2 squares
+    ship = []
+    ship.append([random_row(board),random_col(board)])
+    while len(ship) < 2:
+        row = random_row(board)
+        col = random_col(board)
+        if (
+            (row == ship[0][0]+1 and col == ship[0][1]) or 
+            (row == ship[0][0]-1 and col == ship[0][1]) or 
+            (col == ship[0][1]+1 and row == ship[0][0]) or 
+            (col == ship[0][1]-1 and row == ship[0][0])
+           ):
+            ship.append([row,col])
+    unique = False
+    for part in ship:
+        if part not in ships:
+            unique = True
+    if unique == True:
+        ships.append(ship)
+    # To create a ship of 1 square
+    ship = []
+    ship.append(random_row(board))
+    ship.append(random_col(board))
+    if ship not in ships:
+        ships.append(ship)
 
 
 
-
-
+print
+print ships
 print
 for i in range(len(ships)):
     print "ship " + str(i + 1) + ":",ships[i]

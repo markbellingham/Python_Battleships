@@ -1,3 +1,4 @@
+
 from random import randint
 
 # this holds information about how the board is constructed
@@ -27,12 +28,11 @@ while len(ships) < 3:
     ship.append([random_row(board),random_col(board)])
     while len(ship) < 3:
         count1 += 1 # counts how many times the while loop executes to get a valid result
-        print "Ship 1 attempt number " + str(count1)
+        print "Ship 1 try number " + str(count1)
         # Create the second co-ordinate
         row = random_row(board)
         col = random_col(board)
         # four if statements in 2 parts to check co-ordinates 1, 2 and 3 are next to each other
-        # and within the confines of the board
         if row == ship[0][0]+1 and col == ship[0][1]:
             ship.append([row,col])
             if row+1 < 6:
@@ -67,7 +67,7 @@ while len(ships) < 3:
     ship.append([random_row(board),random_col(board)])
     while len(ship) < 2:
         count2 += 1 # counts how many times the loop executes to get a valid result
-        print "Ship 2 attempt number " + str(count2)
+        print "Ship 2 try number " + str(count2)
         # create a second co-ordinate
         row = random_row(board)
         col = random_col(board)
@@ -79,31 +79,32 @@ while len(ships) < 3:
             (col == ship[0][1]-1 and row == ship[0][0])
            ):
             ship.append([row,col])
-        # make sure that ship number 2 does not overlap ship number 1
-        unique = True
-        for each in ships:
-            a = set(each)
-        b = set(ship)
-        if a.intersection(b):
-            unique = False
-        if unique == True:
-            # When we have a valid ship, add it to the list of ships
-            ships.append(ship)
+            # make sure that ship number 2 does not overlap ship number 1
+            unique = True
+            for i in ships:
+                for j in ship:
+                    if i == j:
+                        unique = False
+                        break
+            if unique == True:
+                # When we have a valid ship, add it to the list of ships
+                ships.append(ship)
+                break
 
 
     ### To create a ship of 1 square ###
     count3 += 1 # counts how many times the loop executes to get a valid result
-    print "Ship 3 attempt number " + str(count3)
+    print "Ship 3 try number " + str(count3)
     ship = [] # creating a new ship
     ship.append(random_row(board))
     ship.append(random_col(board))
     # make sure it is not on top of ships 1 and 2
     unique = True
     for each in ships:
-        a = set(each)
-    b = set(ship)
-    if a.intersection(b):
-        unique = False
+        for part in each:
+            if ship == part:
+                unique = False
+                break
     if unique == True:
         # add it to the list of ships
         ships.append(ship)
